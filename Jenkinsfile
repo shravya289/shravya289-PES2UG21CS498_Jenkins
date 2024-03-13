@@ -8,20 +8,20 @@ pipeline {
                 echo 'Build Stage Successful'
             }
         }
-        stage('Test') {
+       /* stage('Test') {
             steps {
                 // Intentional error introduced - incorrect command
                 sh './main/hello-nonexistent'
                 echo 'Test Stage Successful'
             }
-        }
-        /*stage('Test') {
+        }*/
+        stage('Test') {
             steps {
                 // Replace the incorrect command with a valid test command
                 sh './main/hello' // Example: Running the compiled C++ binary
                 echo 'Test Stage Successful'
             }
-        }*/
+        }
 
         stage('Deploy') {
             steps {
