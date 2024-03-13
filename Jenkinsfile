@@ -16,12 +16,12 @@ pipeline {
             }
         }
         /*stage('Test') {
-    steps {
-        // Replace the incorrect command with a valid test command
-        sh './main/hello' // Example: Running the compiled C++ binary
-        echo 'Test Stage Successful'
-    }
-}*/
+            steps {
+                // Replace the incorrect command with a valid test command
+                sh './main/hello' // Example: Running the compiled C++ binary
+                echo 'Test Stage Successful'
+            }
+        }*/
 
         stage('Deploy') {
             steps {
@@ -33,6 +33,6 @@ pipeline {
     post {
         failure {
             echo 'Pipeline failed'
-        }
-    }
+        }
+    }
 }
