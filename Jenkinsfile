@@ -1,29 +1,36 @@
 pipeline {
     agent any
+    
     stages {
         stage('Build') {
             steps {
-                // Compile the hello.cpp file located inside the main directory
-                sh 'g++ -o main/hello main/hello.cpp'
-                echo 'Build Stage Successful'
+                script {
+                    // Compile the .cpp file using shell script
+                    sh 'g++ -o output PES2UG21CS498.cpp'
+                }
             }
         }
+        
         stage('Test') {
             steps {
-                // Intentional error introduced - incorrect command
-                sh './main/hello-nonexistent'
-                echo 'Test Stage Successful'
+                script {
+                    // Intentional error: trying to execute a non-existent script
+                    sh './output'
+                }
             }
         }
+        
         stage('Deploy') {
             steps {
-                // Add deployment steps if needed
-                echo 'Deployment Successful'
+                // Add deployment steps here
+                echo 'Deployment completed'
             }
         }
     }
+    
     post {
-        failure {
+        always {
+            // Display 'pipeline failed' in case of any errors within the pipeline
             echo 'Pipeline failed'
         }
     }
