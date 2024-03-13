@@ -1,52 +1,30 @@
 pipeline {
     agent any
-
     stages {
         stage('Build') {
             steps {
-                script {
-                    sh 'g++ -o your_executable_name your_cpp_file.cpp'
-                }
-            }
-            post {
-                always {
-                    script {
-                        if (currentBuild.result == 'FAILURE') {
-                            echo 'pipeline failed'
-                        }
-                    }
-                }
+                // Compile the hello.cpp file located inside the main directory
+                sh 'g++ -o main/hello main/hello.cpp'
+                echo 'Build Stage Successful'
             }
         }
         stage('Test') {
             steps {
-                script {
-                    sh './your_executable_name'
-                }
-            }
-            post {
-                always {
-                    script {
-                        if (currentBuild.result == 'FAILURE') {
-                            echo 'pipeline failed'
-                        }
-                    }
-                }
+                // Intentional error introduced - incorrect command
+                sh './main/hello-nonexistent'
+                echo 'Test Stage Successful'
             }
         }
         stage('Deploy') {
             steps {
-                // Add your deployment steps here
-            }
-            post {
-                always {
-                    script {
-                        if (currentBuild.result == 'FAILURE') {
-                            echo 'pipeline failed'
-                        }
-                    }
-                }
+                // Add deployment steps if needed
+                echo 'Deployment Successful'
             }
         }
     }
+    post {
+        failure {
+            echo 'Pipeline failed'
+        }
+    }
 }
